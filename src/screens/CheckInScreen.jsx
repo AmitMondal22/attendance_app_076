@@ -130,7 +130,7 @@ const CheckInScreen = () => {
       },
       {
         maximumAge: 1000, // Cache the location for 10 seconds
-        distanceFilter: 10, // Only update if the location has changed by 10 meters
+        distanceFilter: 100, // Only update if the location has changed by 10 meters
       }
     );
 

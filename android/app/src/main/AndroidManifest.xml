@@ -16,7 +16,6 @@
       android:supportsRtl="true">
       
       <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCVaB-kk0W8u9XHQMLsZtesxv7jV8WXeCg"/>
-      <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="YOUR_LICENCE_KEY_HERE" />
       <service android:name="com.google.android.gms.location.FusedLocationProviderService" android:exported="false"/>
 
       <activity

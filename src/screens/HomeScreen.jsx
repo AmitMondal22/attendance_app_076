@@ -1,10 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, useWindowDimensions } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import HomeMenuGrid from "../components/HomeMenuGrid";
 import HomeAttendanceCard from "../components/HomeAttendanceCard";
 import { AuthContext } from "../AuthContext";
-import BackgroundGeolocation from 'react-native-background-geolocation';
 
 const menuItems = [
   { id: "1", name: "Check In", icon: "log-in", bgColor: "#FFEBEE", iconColor: "#D32F2F" },
@@ -39,47 +38,6 @@ const HomeScreen = () => {
 };
 
 
-// ============================
-
-useEffect(() => {
-  // Configure BackgroundGeolocation
-  BackgroundGeolocation.configure({
-    // Location tracking will continue when the app is in the background
-    desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-    distanceFilter: 10, // meters
-    stopOnTerminate: true, // Stop tracking when the app is terminated
-    startOnBoot: false, // Don't start on device reboot
-    notificationTitle: 'Tracking Location',
-    notificationText: 'Your location is being tracked.',
-    enableHeadless: true, // Handle location in the background when the app is closed
-  });
-
-  // Start tracking location
-  BackgroundGeolocation.start();
-
-  // Listen for location updates
-  BackgroundGeolocation.on('location', (location) => {
-    console.log('Location Update: ', location);
-  });
-
-  // Handle background events
-  BackgroundGeolocation.on('background', () => {
-    console.log('App is in the background');
-  });
-
-  BackgroundGeolocation.on('foreground', () => {
-    console.log('App is in the foreground');
-  });
-
-  // Cleanup when the component is unmounted
-  return () => {
-    BackgroundGeolocation.removeAllListeners();
-    BackgroundGeolocation.stop(); // Stop tracking when the app is closed
-  };
-}, []);
-
-
-// ==================================
 
   return (
     <>
