@@ -4,22 +4,50 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import Geolocation from "@react-native-community/geolocation";
 import { PermissionsAndroid } from "react-native";
+import useLocation from "../hooks/apihooks/useLocation";
 
 const HomeAttendanceCard = () => {
   const navigation = useNavigation();
+  const {apiLocationCheck} = useLocation();
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
   const [clockInTime, setClockInTime] = useState(null);
   const [clockOutTime, setClockOutTime] = useState(null);
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
 
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrentTime(new Date().toLocaleTimeString());
+  //   }, 1000);
+
+  //   return () => clearInterval(timer);
+  // }, []);
+
+  useEffect(() => {
+    apiLocationCheck();
+  }, []);
+  const check_in = async()=>{
+
+  }
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
-
-    return () => clearInterval(timer);
+  
+    const locationInterval = setInterval(() => {
+      console.log("Fetching location...");
+      getCurrentLocation();
+    }, 30000); // Calls getCurrentLocation every 30 seconds
+  
+    return () => {
+      clearInterval(timer);
+      clearInterval(locationInterval);
+    };
   }, []);
+  
+
+  
 
   // Request location permission for Android 6.0 and above
   const requestLocationPermission = async () => {
@@ -59,6 +87,9 @@ const HomeAttendanceCard = () => {
       (position) => {
         setLocation(position.coords);
         console.log("Position:", position.coords);
+        var checkdata=isWithinRadius(position.coords.latitude, position.coords.longitude);
+        Alert.alert("Location", checkdata ? "You are within the radius" : "You are not within the radius");
+
       },
       (error) => {
         console.log("Error:", error.message);
@@ -84,6 +115,7 @@ const HomeAttendanceCard = () => {
         if (position) {
           setLocation(position.coords);
           console.log("Last known position:", position.coords);
+          
         } else {
           Alert.alert("Location Error", "Could not get location. Please check your GPS.");
         }
@@ -94,15 +126,48 @@ const HomeAttendanceCard = () => {
     );
   };
 
+
+  const isWithinRadius = (userLat, userLon)=> {
+    const TARGET_LOCATION = {
+        latitude: 22.5079851,
+        longitude: 88.3727971,
+        radius: 200 // Radius in meters
+    };
+
+    const earthRadius = 6371000; // Radius of the Earth in meters
+
+    // Convert degrees to radians
+    const toRadians = (degrees) => degrees * (Math.PI / 180);
+
+    // Haversine formula
+    const dLat = toRadians(userLat - TARGET_LOCATION.latitude);
+    const dLon = toRadians(userLon - TARGET_LOCATION.longitude);
+    
+    const lat1 = toRadians(TARGET_LOCATION.latitude);
+    const lat2 = toRadians(userLat);
+
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.sin(dLon / 2) * Math.sin(dLon / 2) * 
+              Math.cos(lat1) * Math.cos(lat2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = earthRadius * c;
+
+    return distance <= TARGET_LOCATION.radius;
+}
+
   const handleClockIn = async () => {
-    // try {
-    //   await requestLocationPermission(); // Wait for permission before setting clockInTime
-    //   setClockInTime(currentTime);
-    // } catch (error) {
-    //   console.error("Clock In Error:", error);
-    //   Alert.alert("Clock In Error", "An error occurred during clock in.");
-    // }
-    navigation.navigate("ClockIn");
+    try {
+      await requestLocationPermission(); // Wait for permission before setting clockInTime
+      setClockInTime(currentTime);
+    } catch (error) {
+      console.error("Clock In Error:", error);
+      Alert.alert("Clock In Error", "An error occurred during clock in.");
+    }
+
+    let locationdate= location
+
+    // navigation.navigate("ClockIn");
   };
 
   const handleClockOut = () => {
