@@ -14,6 +14,7 @@ const HomeAttendanceCard = () => {
   const [clockOutTime, setClockOutTime] = useState(null);
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
+  const [clockinSatas, setClocainSatas] = useState(false);
 
   // useEffect(() => {
   //   const timer = setInterval(() => {
@@ -28,7 +29,16 @@ const HomeAttendanceCard = () => {
   }, []);
   const check_in = async()=>{
     let data = await apiLocationCheck();
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data, "****************");
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data.clock_in_data, "****************");
+    let clockindata=data.clock_in_data
+    if(data.clock_in_data){
+      
+      setClocainSatas(false)
+      setClockInTime(clockindata?.clock_in_time);
+      // setClockInTime(clockindata[0].clock_in_time);
+    }else{
+      setClocainSatas(true)
+    }
   }
 
   useEffect(() => {
@@ -193,7 +203,7 @@ const HomeAttendanceCard = () => {
       </View>
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.clockInButton} onPress={handleClockIn}>
+        <TouchableOpacity style={styles.clockInButton} onPress={handleClockIn} disabled={clockinSatas}>
           <Ionicons name="log-in" size={16} color="#fff" />
           <Text style={styles.buttonText}>Clock In</Text>
         </TouchableOpacity>
