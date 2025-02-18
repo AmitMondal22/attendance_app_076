@@ -8,7 +8,7 @@ function useLocation() {
     const token = user?.token; // Ensure users is defined before accessing token
     const apiLocationCheck = async () => {
         try {
-            const response = await axios.post(address.LOGIN, 
+            const response = await axios.post(address.CLOCK_IN_CHECK, 
                 {},
                 {
                 headers: {
