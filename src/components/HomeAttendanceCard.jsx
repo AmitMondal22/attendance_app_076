@@ -24,10 +24,11 @@ const HomeAttendanceCard = () => {
   // }, []);
 
   useEffect(() => {
-    apiLocationCheck();
+    check_in();
   }, []);
   const check_in = async()=>{
-
+    let data = await apiLocationCheck();
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data, "****************");
   }
 
   useEffect(() => {

@@ -4,12 +4,12 @@ import { AuthContext } from '../../AuthContext';
 import { useContext } from 'react';
 
 function useLocation() {
-    const { users } = useContext(AuthContext);
-    const token= user.token
-    const apiLocationCheck = async (email, password) => {
+    const { user } = useContext(AuthContext);
+    const token = user?.token; // Ensure users is defined before accessing token
+    const apiLocationCheck = async () => {
         try {
             const response = await axios.post(address.LOGIN, 
-                { email, password },
+                {},
                 {
                 headers: {
                     'Authorization': `Bearer ${token}`, // Use token for Authorization
