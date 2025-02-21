@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../screens/HomeScreen";
 import DetailsScreen from "../screens/DetailsScreen";
 import CheckInScreen from '../screens/CheckInScreen';
+import InReport from '../screens/report/InReport';
 
 const Stack = createStackNavigator();
 const HomeStack = () => {
@@ -10,6 +11,10 @@ const HomeStack = () => {
         <>
                 <Stack.Navigator>
                     <Stack.Screen name="Home" component={HomeScreen}  options={{
+                        headerShown: false
+                    }} />
+
+                    <Stack.Screen name="CheckIn" component={InReport}  options={{
                         headerShown: false
                     }} />
                     <Stack.Screen name="ClockIn" component={CheckInScreen}  options={{

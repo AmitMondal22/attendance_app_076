@@ -1,10 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, useWindowDimensions,FlatList } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeMenuGrid = ({ menuItems }) => {
+  const navigation = useNavigation();
   const { width } = useWindowDimensions();
   const numColumns = width > 800 ? 5 : width > 600 ? 4 : 3; // Adjust based on screen size
+
+  const handlePress = (name) => {
+    console.log("Menu Item Pressed:", name);
+    // You can navigate, trigger an alert, or perform any action here
+    if (name ==1) {
+      navigation.navigate('CheckIn');
+    }
+  };
 
   return (
     <FlatList
@@ -15,7 +25,7 @@ const HomeMenuGrid = ({ menuItems }) => {
       contentContainerStyle={styles.gridContainer}
       columnWrapperStyle={numColumns > 3 ? styles.rowWide : styles.row}
       renderItem={({ item }) => (
-        <TouchableOpacity style={[styles.menuItem, { backgroundColor: item.bgColor }]}>
+        <TouchableOpacity style={[styles.menuItem, { backgroundColor: item.bgColor }]} onPress={() => handlePress(item.id)}>
           <Ionicons name={item.icon} size={28} color={item.iconColor} />
           <Text style={styles.menuText}>{item.name}</Text>
         </TouchableOpacity>

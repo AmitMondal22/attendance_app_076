@@ -122,23 +122,12 @@ const CheckInScreen = () => {
         style={styles.map}
         //specify our coordinates.
         initialRegion={{
-          latitude: 22.5079851,
-          longitude: 88.3727971,
+          latitude: 37.78825,
+          longitude: -122.4324,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      >
-      <Marker coordinate={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }
-        } 
-          strockColor="rgba(0, 150, 255, 0.5)"
-        />
-
-        </MapView>
+      />
 
       <View style={styles.bottomContainer}>
         <Text style={styles.locationText}>
@@ -160,7 +149,6 @@ const CheckInScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#121212" },
   map: { flex: 1 },
-
   bottomContainer: { padding: 20, backgroundColor: "#1E1E1E", alignItems: "center" },
   locationText: { fontSize: 16, color: "#BBBBBB", marginVertical: 10 },
   clockInButton: { backgroundColor: "#6200EE", paddingVertical: 12, paddingHorizontal: 40, borderRadius: 10 },

@@ -25,7 +25,7 @@ const HomeScreen = () => {
   const [clockOutTime, setClockOutTime] = useState("--:--:--");
   const { width } = useWindowDimensions();
 
-  console.log(">>>>>>>>>>>>>>>>>>>????????????????????");
+  console.log("VVVVVVVVVVVVVVVVVVV",user.user_data);
 
   const formatDate = () => {
     const today = new Date();
@@ -45,13 +45,13 @@ const HomeScreen = () => {
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.companyName}>PT. Classic Creative</Text>
+          <Text style={styles.companyName}>Vedanta Hr</Text>
           <Ionicons name="notifications-outline" size={24} color="#000" />
         </View>
 
         {/* User Profile */}
         <View style={styles.profileContainer}>
-          <Image source={{ uri: "https://randomuser.me/api/portraits/women/44.jpg" }} style={styles.profileImage} />
+          <Image source={{ uri: `https://ui-avatars.com/api/?name=${user.user_data.full_name}&size=128` }} style={styles.profileImage} />
           <View>
             <Text style={styles.profileName}>{user.user_data.full_name}</Text>
             <Text style={styles.profileRole}>{user.user_data.deg}</Text>

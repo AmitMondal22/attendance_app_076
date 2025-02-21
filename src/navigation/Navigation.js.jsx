@@ -9,6 +9,8 @@ import HomeStack from "./HomeStack";
 import LoginScreen from "../screens/LoginScreen";
 import { AuthContext } from "../AuthContext";
 import SlockInScreen from "../screens/SlockInScreen";
+import CheckInScreen from "../screens/CheckInScreen";
+import ComingSoonScreen from "../screens/ComingSoonScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +50,7 @@ export default function AppNavigator() {
           />
           <Tab.Screen
             name="Activity"
-            component={SlockInScreen} // Replace with correct screen
+            component={CheckInScreen} // Replace with correct screen
             options={{
               tabBarLabel: "Activity",
               tabBarIcon: ({ color, focused }) => (
@@ -57,20 +59,20 @@ export default function AppNavigator() {
             }}
           />
           <Tab.Screen
-            name="Tasks"
-            component={HomeStack} // Replace with correct screen
+            name="Chats"
+            component={ComingSoonScreen} // Replace with correct screen
             options={{
-              tabBarLabel: "Tasks",
+              tabBarLabel: "Chats",
               tabBarIcon: ({ color, focused }) => (
                 <MaterialIcons name="chat" size={focused ? 30 : 26} color={color} />
               ),
             }}
           />
           <Tab.Screen
-            name="Training"
-            component={HomeStack} // Replace with correct screen
+            name="My Teams"
+            component={ComingSoonScreen} // Replace with correct screen
             options={{
-              tabBarLabel: "Training",
+              tabBarLabel: "My Teams",
               tabBarIcon: ({ color, focused }) => (
                 <MaterialIcons name="book" size={focused ? 30 : 26} color={color} />
               ),
@@ -82,7 +84,7 @@ export default function AppNavigator() {
             options={{
               tabBarLabel: "Profile",
               tabBarIcon: ({ focused }) => {
-                const profileImage = user?.profilePicture || "https://via.placeholder.com/150"; // Fallback image
+                const profileImage = `https://ui-avatars.com/api/?name=${user.user_data.full_name}&size=128`; // Fallback image
                 return (
                   <Image
                     source={{ uri: profileImage }}
